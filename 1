@@ -1,0 +1,122 @@
+#include <stdio.h>
+
+// Declaración de las funciones
+void ingresar_notas();
+void consultar_notas();
+
+// Definición de la estructura que almacena los detalles de la cuenta
+struct account_details	
+{
+    int account_no;
+    int password;
+    int grade;
+};
+
+// Declaración del arreglo de cuentas
+struct account_details accounts[3] = {
+    {12343432, 1234, 0},
+    {12343433, 5678, 0},
+    {89877182, 1098, 0}
+};
+
+int main()
+{
+    // Menú de opciones
+    while (1)
+    {
+        int choice;
+        printf("\n---COLEGIO CASITA AZUL---\n");
+        printf("1. INGRESAR NOTAS\n2. CONSULTAR NOTAS\n3. EXIT\nEnter Your Choice\t");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+            case 1:
+                ingresar_notas();
+                break;
+
+            case 2:
+                consultar_notas();
+                break;
+
+            case 3:
+                printf("Adiós!\n");
+                return 0;
+
+            default:
+                printf("Enter a Valid choice\n");
+                break;
+        }
+    }
+}
+
+// Función para ingresar notas
+void ingresar_notas()
+{
+    int account_no, password;
+
+    // Pedir los datos de la cuenta
+    printf("\nEnter the account number: ");
+    scanf("%d", &account_no);
+    printf("\nEnter the password: ");
+    scanf("%d", &password);
+
+    // Buscar la cuenta en el arreglo
+    int i;
+    for (i = 0; i < 3; i++)
+    {
+        if (accounts[i].account_no == account_no && accounts[i].password == password)
+        {
+            int grades[5], j;
+
+            // Pedir las notas
+            printf("\nEnter the grades (5 grades):\n");
+            for (j = 0; j < 5; j++)
+            {
+                printf("Grade %d: ", j + 1);
+                scanf("%d", &grades[j]);
+            }
+
+            // Calcular el promedio
+            int total = 0;
+            for (j = 0; j < 5; j++)
+            {
+                total += grades[j];
+            }
+            float promedio = (float)total / 5;
+
+            // Asignar el promedio a la cuenta
+            accounts[i].grade = promedio;
+
+            printf("\nNotas registradas correctamente para la cuenta %d\n", account_no);
+            return;
+        }
+    }
+
+    // Si no se encuentra la cuenta, mostrar mensaje de error
+    printf("\nAccount doesn't exist or password mismatch\n");
+}
+
+// Función para consultar notas
+void consultar_notas()
+{
+    int account_no, password;
+
+    // Pedir los datos de la cuenta
+    printf("\nEnter the account number: ");
+    scanf("%d", &account_no);
+    printf("\nEnter the password: ");
+    scanf("%d", &password);
+
+    // Buscar la cuenta en el arreglo
+    int i;
+    for (i = 0; i < 3; i++)
+    {
+        if (accounts[i].account_no == account_no && accounts[i].password == password)
+        {
+            // Mostrar la nota
+            printf("\nTu nota final es: %d\n", accounts[i].grade);
+            return;
+        }
+    }
+    
+	}
